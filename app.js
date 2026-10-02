@@ -375,6 +375,10 @@
   const savedTheme = storage.get('theme');
   setTheme(savedTheme === 'light' || savedTheme === 'dark' ? savedTheme : 'auto');
   for (const button of $$('[data-theme-choice]')) button.onclick = () => { storage.set('theme', button.dataset.themeChoice); setTheme(button.dataset.themeChoice); };
+  // Each visit gives the cover one of the dark colours in styles.css, never the one it had last time.
+  const coverColours = ['teal', 'navy', 'prussian', 'maroon', 'rust', 'plum'].filter(c => c !== storage.get('cover'));
+  const coverColour = coverColours[Math.floor(Math.random() * coverColours.length)];
+  document.documentElement.dataset.cover = coverColour; storage.set('cover', coverColour);
   host.classList.toggle('framed', turnStyle === 'framed');
   for (const input of $$('input[name="turnStyle"]')) {
     input.checked = input.value === turnStyle;

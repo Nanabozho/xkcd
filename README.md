@@ -38,6 +38,7 @@ Search includes titles, hover text, the explain xkcd transcripts and xkcd's offi
 - **← / →**, a horizontal swipe, or a click, tap or drag near either side of the page turns pages: the outer 30% on the left goes back, on the right forward, and a drag turns the page once it is a fifth of the way across. Vertical gestures scroll page content.
 - **?** sets how pages move: **Slide**, the default, brings the next page in over the one you're on, from either side, inside the book's edges; **Turn** turns the page you're on away, from either side.
 - Dark mode follows the system setting (Auto); the sun / half-circle / moon switch in the top bar sets Light, Auto or Dark. It darkens everything around the book, while the pages, and so the comics, stay white as in the original.
+- The cover takes a dark colour at random on each visit: slate teal, navy, Prussian blue, maroon, burnt orange or plum, never the same one twice in a row.
 - **/** focuses search; **b** opens Book; **g** opens Browse; **r** opens a random comic; **i** opens the year/number index.
 - Click the comic to enlarge it; **Escape** closes dialogs.
 - Click the navigator's title to open the year/number index.

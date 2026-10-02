@@ -385,7 +385,8 @@
   $('#yearFilter').onchange = renderBrowse; $('#sortOrder').onchange = renderBrowse;
   $('#zoomBtn').onclick = () => toggleZoom(); $('#fullImage').onclick = toggleZoom;
   search.oninput = () => { clearTimeout(searchTimer); searchTimer = setTimeout(showSearch, 120); };
-  search.onfocus = () => { if (search.value.trim()) showSearch(); };
+  // The index is built on the way to the first search, once the focused box has painted.
+  search.onfocus = () => { setTimeout(() => engine.build()); if (search.value.trim()) showSearch(); };
   search.onkeydown = e => {
     if (e.key === 'Escape') { closeSearch(); search.blur(); return; }
     if (e.key === 'Enter') {

@@ -21,6 +21,12 @@
   class ComicSearch {
     constructor(comics) {
       this.comics = comics;
+      this.cache = new Map();
+    }
+    // Indexing every transcript is slow on phones, so it waits for the first query that needs words.
+    build() {
+      if (this.index) return this;
+      const comics = this.comics;
       this.documents = comics.map(c => fields.map(([key]) => normalize(c[key])));
       this.index = new Map();
       comics.forEach((c, i) => {
@@ -31,7 +37,7 @@
         }
       });
       this.vocabulary = [...this.index.keys()];
-      this.cache = new Map();
+      return this;
     }
     search(query) {
       query = query.trim();
@@ -51,6 +57,7 @@
       if (/^\d{4}-\d{2}(?:-\d{2})?$/.test(query)) {
         return put(this.comics.flatMap((c, index) => c.date.startsWith(query) ? [{ index, score: 100, label: 'Publication date', snippet: c.date, terms: [query] }] : []));
       }
+      this.build();
       const phrases = [...query.matchAll(/"([^"]+)"/g)].map(m => normalize(m[1])).filter(Boolean);
       const remainder = words(query.replace(/"[^"]+"/g, ' '));
       let tokens = [...new Set(remainder.filter(t => !stopwords.has(t)))];

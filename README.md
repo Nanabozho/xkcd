@@ -2,7 +2,7 @@
 
 **[Read the notebook](https://nanabozho.github.io/xkcd/)** · [Source on GitHub](https://github.com/nanabozho/xkcd) · [CC BY-NC 2.5](LICENSE)
 
-A standalone, single-layer flip notebook: one comic per page, based on the Arabic and Mythos notebooks in the parent folder. No framework, build step, account, or server is needed to read it.
+A standalone flip notebook of every xkcd comic, one comic per page. No framework, build step, account, or server is needed to read it.
 
 Open **index.html** directly in a browser. Everything needed for reading and searching is local. Alternatively, from this folder run `python3 -m http.server 8000` and visit <http://localhost:8000>. The folder can also be served by GitHub Pages as-is.
 
@@ -91,7 +91,7 @@ The browser test uses Playwright/Chromium, blocks all HTTP requests, and checks 
 
 Comics and accompanying text are **© Randall Munroe**, from [xkcd.com](https://xkcd.com/), shared under [CC BY-NC 2.5](https://xkcd.com/license.html). Preserve attribution and use this collection noncommercially. Every comic page links back to its original.
 
-The notebook's original code, documentation and arrangement are **Copyright © 2026 Nanabozho and contributors**, also licensed under **Creative Commons Attribution–NonCommercial 2.5**, as requested. The full, unmodified license text is in [LICENSE](LICENSE); detailed attribution and scope are in [COMIC-LICENSE.txt](COMIC-LICENSE.txt). This is an unofficial reader and is not affiliated with or endorsed by Randall Munroe. The comics retain Randall's copyright and original license; no ownership of them is claimed by this project.
+The notebook's original code, documentation and arrangement are **Copyright © 2026 Nanabozho and contributors**, also licensed under **Creative Commons Attribution–NonCommercial 2.5**. The full, unmodified license text is in [LICENSE](LICENSE); detailed attribution and scope are in [COMIC-LICENSE.txt](COMIC-LICENSE.txt). This is an unofficial reader and is not affiliated with or endorsed by Randall Munroe. The comics retain Randall's copyright and original license; no ownership of them is claimed by this project.
 
 **Transcripts from explain xkcd** are written by the [explain xkcd](https://www.explainxkcd.com/) contributors and licensed under [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/), as the wiki's [copyright page](https://www.explainxkcd.com/wiki/index.php/explain_xkcd:Copyrights) requires; that license, not this project's, covers them. The notebook converts their wiki markup to plain text, leaving out the wiki's notices and footnotes. Each transcript links to the page it came from in the **Text** view, and search results credit explain xkcd. The comic dialogue they quote remains © Randall Munroe under CC BY-NC 2.5.
 

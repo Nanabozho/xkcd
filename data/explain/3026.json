@@ -1,0 +1,1 @@
+{"num":3026,"page":"3026: Linear Sort","revid":181362,"timestamp":"2025-02-05T09:38:04Z","wikitext":":[The panel shows five lines of code:]\n:function LinearSort(list):\n::StartTime=Time()\n::MergeSort(list)\n::Sleep(1e6*length(list)-(Time()-StartTime))\n::return\n\n:[Caption below the panel:]\n:How to sort a list in linear time"}

@@ -1,0 +1,35 @@
+xkcd comics, titles, hover text, and official transcripts: © Randall Munroe.
+Source: https://xkcd.com/
+License: Creative Commons Attribution-NonCommercial 2.5
+Author's license statement: https://xkcd.com/license.html
+License deed: https://creativecommons.org/licenses/by-nc/2.5/
+Full legal terms: https://creativecommons.org/licenses/by-nc/2.5/legalcode
+
+Retain attribution and source links. These comics may be copied and reused
+noncommercially under the license. Do not imply Randall Munroe endorses this
+notebook.
+
+Notebook code, documentation, arrangement and other original contributions:
+Copyright (c) 2026 Nanabozho and contributors.
+Licensed under CC BY-NC 2.5 as specified in LICENSE.
+Repository: https://github.com/nanabozho/xkcd
+Website: https://nanabozho.github.io/xkcd/
+
+This notebook is unofficial and is not affiliated with or endorsed by
+Randall Munroe. The original image files are unmodified; display sizing,
+search and the notebook presentation are this project's additions.
+The comics are offered under Randall Munroe's original license, not
+sublicensed or claimed as this project's original work.
+
+Transcripts from explain xkcd (the "explainTranscript" text in comics.js and
+data/explain/) are written by the explain xkcd contributors,
+https://www.explainxkcd.com/, and licensed under Creative Commons
+Attribution-ShareAlike 3.0, https://creativecommons.org/licenses/by-sa/3.0/.
+They keep that license; this project's license does not cover them. Each
+transcript links to its source page in the reader; the notebook converts the
+wiki markup to plain text, leaving out notices and footnotes. The comic
+dialogue they quote remains (c) Randall Munroe under CC BY-NC 2.5.
+
+Third-party exception: vendor/page-flip.browser.js is StPageFlip,
+Copyright (c) 2020 Nodlik, under the MIT license preserved verbatim in
+vendor/page-flip-LICENSE. The repository license does not replace that license.

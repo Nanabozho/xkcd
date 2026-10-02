@@ -1,0 +1,1 @@
+{"num":1201,"page":"1201: Integration by Parts","revid":19656,"timestamp":"2025-04-26T09:49:10Z","wikitext":":A Guide to\n:Integration by Parts:\n\n:Given a problem of the form:\n::∫f(x)g(x)dx=?\n:Choose variables u and v such that\n::u=f(x)\n::dv=g(x)dx\n:Now the expression becomes:\n::∫udv=?\n:Which ''definitely'' looks easier.\n:Anyway, I gotta run.\n:But good luck!"}

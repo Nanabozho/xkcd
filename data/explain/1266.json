@@ -1,0 +1,1 @@
+{"num":1266,"page":"1266: Halting Problem","revid":25134,"timestamp":"2023-12-17T16:05:29Z","wikitext":":[A short computer program.]\n '''Define''' DoesItHalt(program):\n {\n  '''Return''' True;\n }\n:[Caption below the panel]:\n:The big picture solution to the halting problem."}

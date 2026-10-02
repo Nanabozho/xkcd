@@ -1,0 +1,1 @@
+{"num":221,"page":"221: Random Number","revid":114690,"timestamp":"2026-05-28T21:02:23Z","wikitext":"[A computer program.]\n int getRandomNumber()\n {\n    return 4; // chosen by fair dice roll.\n              // guaranteed to be random.\n }"}

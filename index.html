@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#ede7db" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#1b1f22" media="(prefers-color-scheme: dark)">
+  <meta name="description" content="A searchable, page-turning xkcd notebook. Comics by Randall Munroe, with searchable hover text and transcripts that describe what is drawn.">
+  <meta name="author" content="Comics: Randall Munroe. Unofficial notebook: Nanabozho and contributors.">
+  <link rel="license" href="https://creativecommons.org/licenses/by-nc/2.5/">
+  <title>xkcd Notebook</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='6' fill='%232e424b'/%3E%3Ctext x='20' y='29' text-anchor='middle' font-family='monospace' font-size='30' fill='%23faf6ec'%3Ex%3C/text%3E%3C/svg%3E">
+  <script>try { const t = localStorage.getItem('xkcdNotebook.theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch {}</script>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="xkcd Notebook cover"><span class="brand-mark">x</span><span><strong>xkcd <span>Notebook</span></strong><small id="brandCount">Comics by Randall Munroe</small></span></a>
+    <div class="search-wrap">
+      <label class="sr-only" for="search">Search all comics</label>
+      <input id="search" type="search" autocomplete="off" placeholder="A title, a phrase, something you remember…" aria-controls="searchResults" aria-expanded="false">
+      <kbd class="search-key">/</kbd>
+      <div id="searchResults" class="search-results" hidden></div>
+    </div>
+    <div class="top-actions">
+      <button id="randomBtn" class="quiet-btn" title="Random comic (r)" aria-label="Random comic"><span class="random-label">Random</span> <svg class="random-icon" viewBox="0 0 16 16" aria-hidden="true"><rect x="1.5" y="1.5" width="13" height="13" rx="3" fill="none" stroke="currentColor" stroke-width="1.4"/><circle cx="5.2" cy="5.2" r="1.25"/><circle cx="8" cy="8" r="1.25"/><circle cx="10.8" cy="10.8" r="1.25"/></svg></button>
+      <div class="view-toggle" aria-label="Reading view"><button id="bookMode" class="active" aria-pressed="true">Book</button><button id="browseMode" aria-pressed="false">Browse</button></div>
+      <div class="theme-switch" role="group" aria-label="Appearance">
+        <button data-theme-choice="light" aria-label="Light" title="Light" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2.5M12 19v2.5M2.5 12H5M19 12h2.5M5.3 5.3l1.8 1.8M16.9 16.9l1.8 1.8M5.3 18.7l1.8-1.8M16.9 7.1l1.8-1.8"/></svg></button>
+        <button data-theme-choice="auto" aria-label="Auto: follow the system" title="Auto: follows your system" aria-pressed="true"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 4a8 8 0 0 1 0 16z" fill="currentColor"/></svg></button>
+        <button data-theme-choice="dark" aria-label="Dark" title="Dark" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.5 14.6A8 8 0 1 1 9.4 4.5a6.4 6.4 0 0 0 10.1 10.1z"/></svg></button>
+      </div>
+      <button id="aboutBtn" class="quiet-btn about-btn" aria-label="About this notebook">?</button>
+    </div>
+  </header>
+
+  <main>
+    <section id="bookView" class="view-book" aria-label="Comic book">
+      <div class="book-stage"><div id="bookHost" class="book-host"></div></div>
+      <p class="book-hint">← → to turn · click the comic to enlarge · <button data-dialog="tocDialog">index</button> to jump anywhere</p>
+    </section>
+    <section id="browseView" class="view-browse" hidden aria-label="Browse comics">
+      <div class="browse-heading"><div><span class="eyebrow">The collection</span><h1 id="browseTitle">Browse xkcd</h1><p id="browseSummary" role="status"></p></div>
+        <div class="filters"><label>Year<select id="yearFilter"><option value="">All years</option></select></label><label>Order<select id="sortOrder"><option value="relevance">Best match</option><option value="oldest">Oldest first</option><option value="newest">Newest first</option></select></label></div>
+      </div>
+      <p class="search-tip">Search titles, hover text and transcripts, including what is drawn. Use <strong>"quotation marks"</strong> for a phrase, or <strong>#353</strong> for a comic.</p>
+      <p class="collection-credit">Comics © <a href="https://xkcd.com/" target="_blank" rel="noopener noreferrer">Randall Munroe · xkcd</a> · <a href="https://xkcd.com/license.html" target="_blank" rel="license noopener noreferrer">CC BY-NC 2.5</a>.</p>
+      <div id="grid" class="comic-grid"></div>
+    </section>
+  </main>
+
+  <nav class="navigator" aria-label="Book navigation">
+    <button id="prevBtn" aria-label="Previous page">← <span>Previous</span></button>
+    <button id="tocBtn" class="where" aria-label="Open comic index"><span id="position">—</span><strong id="currentTitle">Cover</strong></button>
+    <button id="nextBtn" aria-label="Next page"><span>Next</span> →</button>
+  </nav>
+
+  <dialog id="tocDialog" class="toc-dialog" aria-labelledby="tocTitle">
+    <form method="dialog" class="dialog-head"><div><span class="eyebrow">Go to</span><h2 id="tocTitle">Comic index</h2></div><button class="close-btn" aria-label="Close index">×</button></form>
+    <div class="toc-tools"><label for="tocYear">Year</label><select id="tocYear"></select><label for="comicNumber">Comic #</label><input id="comicNumber" type="number" min="1" inputmode="numeric" placeholder="353"><button id="numberGo">Go</button></div>
+    <p id="numberMessage" class="muted" role="status"></p><div id="tocList" class="toc-list"></div>
+  </dialog>
+
+  <dialog id="aboutDialog" class="about-dialog" aria-labelledby="aboutTitle">
+    <form method="dialog" class="dialog-head"><div><span class="eyebrow">About & credits</span><h2 id="aboutTitle">A notebook for the curious.</h2></div><button class="close-btn" aria-label="Close about">×</button></form>
+    <div class="dialog-body">
+      <p>All comics and their accompanying text are by <strong>Randall Munroe</strong>. Visit <a href="https://xkcd.com/" target="_blank" rel="noopener noreferrer">xkcd.com</a> for the originals.</p>
+      <p>The comics are shared under <a href="https://xkcd.com/license.html" target="_blank" rel="noopener noreferrer">Creative Commons Attribution–NonCommercial 2.5</a>. Please keep the attribution and use this collection noncommercially.</p>
+      <p>This is an unofficial reader, not affiliated with or endorsed by Randall Munroe. The notebook's original code and documentation use the same <a href="./LICENSE" target="_blank" rel="license noopener">CC BY-NC 2.5 license</a>. StPageFlip retains its <a href="./vendor/page-flip-LICENSE" target="_blank" rel="noopener">MIT license</a>.</p>
+      <p id="coverage"></p>
+      <p>Search looks through titles, hover text, the official transcripts where available, and transcripts from <a href="https://www.explainxkcd.com/" target="_blank" rel="noopener noreferrer">explain xkcd</a>, which also describe what is drawn. Those are written by explain xkcd's contributors and shared under <a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" rel="license noopener noreferrer">CC BY-SA 3.0</a>; each one links to its page from <strong>Text</strong>.</p>
+      <p>Interactive comics have their official static image here. Follow <strong>Original on xkcd</strong> for the full interactive experience. Comic #404 is intentionally absent from xkcd.</p>
+      <fieldset class="setting"><legend>Page turns</legend>
+        <label><input type="radio" name="turnStyle" value="framed"> <span><strong>Slide</strong> · the next page slides in over the one you're on, inside the book</span></label>
+        <!-- <label><input type="radio" name="turnStyle" value="slide"> <span><strong>Slide past the edges</strong> · the same, but the moving page swings out past the book</span></label> -->
+        <label><input type="radio" name="turnStyle" value="turn"> <span><strong>Turn</strong> · the page you're on turns away, from either side</span></label>
+      </fieldset>
+      <div class="shortcuts"><span><kbd>←</kbd><kbd>→</kbd> Turn pages</span><span><kbd>/</kbd> Search</span><span><kbd>b</kbd> Book</span><span><kbd>g</kbd> Browse</span><span><kbd>r</kbd> Random</span><span><kbd>i</kbd> Index</span><span><kbd>Esc</kbd> Close</span></div>
+      <p class="muted">Built by Claude Opus 5.5 with human guidance. Page turns by StPageFlip. No account, server, or network is needed to read the downloaded collection.</p>
+    </div>
+  </dialog>
+
+  <dialog id="imageDialog" class="image-dialog" aria-labelledby="imageTitle">
+    <form method="dialog" class="dialog-head"><div><span class="eyebrow">A closer look</span><h2 id="imageTitle"></h2></div><div class="image-actions"><button id="zoomBtn" type="button">Actual size</button><a id="fullImageLink" target="_blank" rel="noopener">Open image ↗</a><button class="close-btn" aria-label="Close image">×</button></div></form>
+    <div id="imageViewport" class="image-viewport"><img id="fullImage" alt=""></div>
+    <p id="imageAlt"></p>
+    <p id="imageCredit" class="modal-credit"></p>
+  </dialog>
+  <div id="announcer" class="sr-only" role="status" aria-live="polite"></div>
+  <noscript><p class="no-script">Enable JavaScript to read the notebook, or visit the <a href="https://xkcd.com/archive/">official xkcd archive</a>.</p></noscript>
+  <script src="./vendor/page-flip.browser.js"></script>
+  <script src="./comics.js"></script>
+  <script src="./search.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>
